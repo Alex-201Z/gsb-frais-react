@@ -1,15 +1,41 @@
 .style {
     background-color: #333;
     padding: 1rem;
-    color: white;
+    color: rgb(0, 0, 0);
     margin-right:1rem ;
 }
 .nav-link {
-    color: white;
-    margin-right: 1rem;
+    color: rgb(241, 241, 241);
+    margin-right: 5rem;
+    background-color: #000000;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
     
 }
 .navbardiv {
     display: flex;
     justify-content: space-between;
+}
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+  position: center;  /* Nécessaire pour le positionnement du badge */
+  background: rgb(91, 91, 143);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
 }

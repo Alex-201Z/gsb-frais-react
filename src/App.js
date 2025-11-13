@@ -12,9 +12,10 @@ function App() {
   return (
 <BrowserRouter>
   {/* Liens temporaires pour tester les routes */}
- <Navbar />
+
   {/* Routes de l'application */}
   <AuthProvider>
+ <Navbar />
   <Routes>
     <Route path="/home" element={<Home />} />
     <Route path="/login" element={<Login />} />

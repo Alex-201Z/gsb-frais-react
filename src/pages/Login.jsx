@@ -4,13 +4,16 @@ import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 
 
+
 export default function Login() {
   // 1. États locaux pour les champs du formulaire
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
 
   // 3. Hook pour la redirection après connexion
+
 const navigate = useNavigate();
+const { loginUser } = useAuth();
 
 // 4. Déclaration de la fonction handleSubmit
 const handleSubmit = (e) => {
@@ -27,20 +30,21 @@ const handleSubmit = (e) => {
   return (
     <div className="login-page">
       <div className="login-container">
-        <h1>Connexion</h1>
+        <center><h1>Connexion</h1></center>
         <form className="login-form" onSubmit={handleSubmit}>
           <div>
             <label>Login : </label>
+            <br></br>
             <input
               type="text"
               value={login}
               onChange={(e) => setLogin(e.target.value)}
               required
             />
-          </div>
-          // TODO : compléter le formulaire de connexion
+          </div><br></br>
             <div>
             <label>Mot de passe : </label>
+            <br></br>
             <input
               type="password"
               value={password}
@@ -48,8 +52,10 @@ const handleSubmit = (e) => {
               required
             />
           </div>
-          <button type="submit">Se connecter</button>
+          <br></br>
+          <button type="submit" className='nav-link'>Se connecter</button>
         </form>
+        <br></br>
         <Link to="dashboard" className='nav-link'>Accueil</Link>
       </div>
     </div>
