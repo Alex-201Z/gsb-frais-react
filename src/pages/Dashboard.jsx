@@ -8,7 +8,7 @@ function Dashboard() {
   return (
     <div>
       {user == null && <h1> Bonjour</h1>}
-      {user != null && <h1> Bonjour {user} </h1>}
+      {user != null && <h1> Bonjour {user.nom_visiteur} </h1>}
       {user != null && <FraisTable />}
     
     </div>

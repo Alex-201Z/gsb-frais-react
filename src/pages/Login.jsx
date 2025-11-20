@@ -16,13 +16,14 @@ const navigate = useNavigate();
 const { loginUser } = useAuth();
 
 // 4. Déclaration de la fonction handleSubmit
-const handleSubmit = (e) => {
+const handleSubmit = async (e) => { 
   e.preventDefault(); // Empêche le rechargement de la page
   // Appel de la fonction login avec email et password
-  if (loginUser(login, password)) {
+  try {
+    await loginUser(login, password);
     navigate('/dashboard'); // Redirige vers /dashboard si succès
-  } else {
-    alert('Identifiants incorrects'); // Affiche une erreur si échec
+  } catch {
+    alert('Echec de la connexion'); // Affiche une erreur si échec
   }
 };
 
