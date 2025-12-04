@@ -12,6 +12,7 @@ function Navbar() {
         <div >
           {user &&<button className='nav-link'><Link to="/home" className='nav-link'>Accueil</Link></button>}
           {user && <button className='nav-link'><Link to="/dashboard" className='nav-link'>Tableau de bord</Link></button>}
+          {user && <button className='nav-link'><Link to="/frais/ajouter" className='nav-link'>Ajouter Frais</Link></button>}
         </div>
         <div>
           {user && <button onClick={ logoutUser} className='nav-link'>Déconnexion</button> }

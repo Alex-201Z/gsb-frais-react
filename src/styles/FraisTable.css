@@ -45,3 +45,10 @@ align-items: center;
 gap: 8px; 
 cursor: pointer; 
 }
+.edit-button { 
+background-color: #ffc107; 
+margin-right: 5px; 
+} 
+.edit-button:hover { 
+background-color: #e0a800; 
+} 

@@ -23,3 +23,4 @@ return JSON.parse(localStorage.getItem('user'));
 export const getAuthToken = () => { 
 return localStorage.getItem('token'); 
 };
+export { API_URL };

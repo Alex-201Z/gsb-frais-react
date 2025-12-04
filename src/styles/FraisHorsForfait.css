@@ -1,0 +1,79 @@
+.frais-hors-forfait-container {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.frais-hors-forfait-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.frais-hors-forfait-table th, .frais-hors-forfait-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.frais-hors-forfait-table th {
+  background-color: #f2f2f2;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+form input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.return-button {
+    background-color: #9c9d9f;
+
+}
+
+/* src/styles/FraisHorsForfait.css */
+.frais-hors-forfait-link {
+  width: 50%;
+  display: inline-block;
+  padding: 8px 12px;
+  background-color: #f0f0f0; /* Gris clair */
+  color: #333; /* Couleur du texte */
+  border-radius: 4px; /* Arrondi */
+  text-decoration: none; /* Supprime le soulignement du lien */
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+}
+
+.frais-hors-forfait-link:hover {
+  background-color: #ddd; /* Couleur au survol */
+}
+
+.total {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-top: 10px;
+}

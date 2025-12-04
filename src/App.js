@@ -6,6 +6,8 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Navbar from './components/Navbar';
 import { AuthProvider } from './context/AuthContext';
+import FraisAdd from './pages/FraisAdd';
+import FraisEdit from './pages/FraisEdit';
 
 
 function App() {
@@ -20,6 +22,9 @@ function App() {
     <Route path="/home" element={<Home />} />
     <Route path="/login" element={<Login />} />
     <Route path="/dashboard" element={<Dashboard />} />
+    <Route path="/frais/ajouter" element={<FraisAdd />} /> 
+    <Route path="/frais/modifier/:id" element={<FraisEdit />} /> 
+
   </Routes>
   </AuthProvider>
 </BrowserRouter>
