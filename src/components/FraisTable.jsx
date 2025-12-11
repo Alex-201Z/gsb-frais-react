@@ -1,7 +1,6 @@
 // TODO (question 2) : importer les dépendances nécessaires
 import React, { useState, useEffect } from 'react';
 import '../styles/FraisTable.css';
-import tab from '@testing-library/user-event/dist/tab';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { API_URL } from '../services/authService';
@@ -16,6 +15,7 @@ function FraisTable() {
   const [filterNonNull, setFilterNonNull] = useState(true);
   const { user, token } = useAuth();
   const navigate = useNavigate();
+  
 
 
   useEffect(() => {
@@ -88,7 +88,7 @@ function FraisTable() {
             <th>Date de modification</th>
             <th>Montant saisi</th>
             <th>Montant validé</th>
-            <th>Modification</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -107,6 +107,11 @@ function FraisTable() {
                   className="edit-button"
                 >
                   Modifier
+                </button>
+                <button onClick={() => navigate(`/frais/suppr/${frais.id_frais}`)}
+                  className="delete-button"
+                >
+                  Supression
                 </button>
               </td>
             </tr>

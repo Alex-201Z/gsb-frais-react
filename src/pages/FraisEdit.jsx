@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import { getCurrentUser, API_URL } from '../services/authService';
+import FraisForm from '../components/FraisForm';
 
 
 export default function FraisEdit() {
     const { id } = useParams();
-    const { frais } = useState(null);
-    const { loading, setLoading } = useState(true);
+    const [ frais, setFrais ] = useState(null);
+    const [ loading, setLoading ] = useState(true);
+
+    const user = getCurrentUser();
+    
 
     useEffect(() => {
         const fetchFrais = async () => {
@@ -24,13 +29,14 @@ export default function FraisEdit() {
         };
         fetchFrais();
     }, [id]);
-    if (loading) {
-        return <div>Chargement...</div>;
-    }
+
+        return (
+            <div>
+                {user != null && (<FraisForm frais={frais} />)}
+            
+            </div>
+    
+        );
 
 }
-return (
-    <div>
-        {user != null && (<FraisForm frais={frais} />)}
-            </div>
-);
+
