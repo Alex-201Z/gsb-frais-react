@@ -15,7 +15,8 @@ function FraisTable() {
   const [filterNonNull, setFilterNonNull] = useState(true);
   const { user, token } = useAuth();
   const navigate = useNavigate();
-  
+
+
 
 
   useEffect(() => {
@@ -51,6 +52,22 @@ function FraisTable() {
       frais.id_visiteur.toString().includes(searchTerm)
         .filter((f) => !filterNonNull || f.montantvalide !== null)
     );
+  const handleDelete = async (id) => {
+    if (!window.confirm('Êtes-vous sûr de vouloir supprimer ce frais ?')) return;
+    try {
+      await axios.delete(
+        `${API_URL}frais/suppr`,
+        {
+          data: { id_frais: id },
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      );
+      // Met à jour FraisList en ignorant le frais qui a été supprimé : on ne garde que les frais dont l’id est différent de l’id du frais sélectionné
+      setFraisList(fraisList.filter((frais) => frais.id_frais !== id));
+    } catch (error) { console.error('Erreur lors de la suppression:', error); }
+
+
+  }
   return (
 
     <div className="frais-table-container">
@@ -108,7 +125,7 @@ function FraisTable() {
                 >
                   Modifier
                 </button>
-                <button onClick={() => navigate(`/frais/suppr/${frais.id_frais}`)}
+                <button onClick={() => handleDelete(frais.id_frais)}
                   className="delete-button"
                 >
                   Supression

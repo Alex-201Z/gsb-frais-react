@@ -7,7 +7,9 @@ import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 
 
-export default function FraisForm({ frais = null }) {
+
+
+export default function FraisHorsForfaitForm({ FraisHorsForfait = null }) {
     const [idFrais, setIdFrais] = useState('null');
     const [anneeMois, setanneeMois] = useState('');
     const [nbJustificatifs, setnbJustificatifs] = useState('');
@@ -21,14 +23,14 @@ export default function FraisForm({ frais = null }) {
 
     // Pré-remplir le formulaire si on modifie un frais existant 
     useEffect(() => {
-        if (frais) {
-            setIdFrais(frais.id_frais);
-            setMontant(frais.montantvalide || '');
+        if (FraisHorsForfait) {
+            setIdFrais(FraisHorsForfait.id_frais);
+            setMontant(FraisHorsForfait.montantvalide || '');
             // TODO : compléter en affectant la valeur à anneeMois et nbJustificatifs 
-            setanneeMois(frais.anneemois);
-            setnbJustificatifs(frais.nbjustificatifs);
+            setanneeMois(FraisHorsForfait.anneemois);
+            setnbJustificatifs(FraisHorsForfait.nbjustificatifs);
         }
-    }, [frais]);
+    }, [FraisHorsForfait]);
 
 
 
@@ -39,19 +41,19 @@ export default function FraisForm({ frais = null }) {
         setLoading(true);
         setError('');
         try {
-            const fraisData = {
+            const fraisHorsForfaitData = {
                 anneemois: anneeMois,
                 nbjustificatifs: parseInt(nbJustificatifs, 10),
             };
-            if (frais) {// Mise à jour d'un frais existant (UPDATE) 
-                fraisData["id_frais"] = idFrais; // ajoute id_frais au JSON fraisData
-                fraisData["montantvalide"] = parseFloat(montant);
+            if (FraisHorsForfait) {// Mise à jour d'un frais existant (UPDATE) 
+                fraisHorsForfaitData["id_frais"] = idFrais; // ajoute id_frais au JSON fraisHorsForfaitData
+                fraisHorsForfaitData["montantvalide"] = parseFloat(montant);
 
                 // TODO : compléter la requête 
 
                 const response = await axios.post(
-                    `${API_URL}frais/modif`,
-                    fraisData,
+                    `${API_URL}fraisHF/modif`,
+                    fraisHorsForfaitData,
                     {
                         headers: { Authorization: `Bearer ${token}` },
                     }
@@ -63,9 +65,9 @@ export default function FraisForm({ frais = null }) {
                 console.log(response)
             } else { // Ajout d'un nouveau frais (CREATE) 
 
-                // TODO : Ajouter id_visiteur à fraisData 
-                fraisData["id_visiteur"] = getCurrentUser().id_visiteur;
-                const response = await axios.post(`${API_URL}frais/ajout`,
+                // TODO : Ajouter id_visiteur à fraisHorsForfaitData 
+                fraisHorsForfaitData["id_visiteur"] = getCurrentUser().id_visiteur;
+                const response = await axios.post(`${API_URL}fraisHF/ajout`,
 
                     fraisData, {
                     headers: { Authorization: `Bearer ${token}` },
