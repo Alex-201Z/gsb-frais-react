@@ -11,7 +11,8 @@ function Navbar() {
       <div className="navbardiv">
         <div >
           {user &&<button className='nav-link'><Link to="/home" className='nav-link'>Accueil</Link></button>}
-          {user && <button className='nav-link'><Link to="/dashboard" className='nav-link'>Tableau de bord</Link></button>}
+          {user && <button className='nav-link'><Link to="/dashboard" className='nav-link'>Tableau de bord des Frais</Link></button>}
+          {user && <button className='nav-link'><Link to="/dashboardmedicaments" className='nav-link'>Tableau de bord des Médicaments</Link></button>}
           {user && <button className='nav-link'><Link to="/frais/ajouter" className='nav-link'>Ajouter Frais</Link></button>}
         </div>
         <div>

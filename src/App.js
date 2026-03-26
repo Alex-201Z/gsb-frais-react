@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import { AuthProvider } from './context/AuthContext';
 import FraisAdd from './pages/FraisAdd';
 import FraisEdit from './pages/FraisEdit';
+import DashboardMedicaments from './pages/DashboardMedicament';
 
 
 function App() {
@@ -24,11 +25,10 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/frais/ajouter" element={<FraisAdd />} />
           <Route path="/frais/modifier/:id" element={<FraisEdit />} />
-          <Route path="/frais/:id/hors-forfait" element={<FraisHorsForfait />} />
+          <Route path="/dashboardmedicaments" element={<DashboardMedicaments />} />
+      {/*  <Route path="/frais/:id/hors-forfait" element={<FraisHorsForfait />} />
           <Route path="/frais/:id/hors-forfait/ajouter" element={<FraisHorsForfaitAdd />} />
-          <Route path="/frais/:id/hors-forfait/modifier/:idHF" element={<FraisHorsForfaitEdit />} />
-
-
+          <Route path="/frais/:id/hors-forfait/modifier/:idHF" element={<FraisHorsForfaitEdit />} /> */}
 
         </Routes>
       </AuthProvider>

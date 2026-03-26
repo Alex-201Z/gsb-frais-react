@@ -1,15 +1,15 @@
 // TODO (question 2) : importer les dépendances nécessaires
 import React, { useState, useEffect } from 'react';
-import '../styles/FraisTable.css';
+import '../styles/medicamentTable.css';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { API_URL } from '../services/authService';
 import { useNavigate } from 'react-router-dom';
 
-// TODO (question 3): déclarer un composant fonctionnel FraisTable
-function FraisTable() {
-  // TODO (question 4): Déclarer l'état 'frais' avec useState
-  const [fraisList, setFraisList] = useState([]);
+// TODO (question 3): déclarer un composant fonctionnel medicamentTable
+function MedicamentTable() {
+  // TODO (question 4): Déclarer l'état 'medicament' avec useState
+  const [medicamentList, setmedicamentList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterNonNull, setFilterNonNull] = useState(true);
@@ -20,58 +20,58 @@ function FraisTable() {
 
 
   useEffect(() => {
-    const fetchFrais = async () => {
+    const fetchmedicament = async () => {
       try {
         const response = await
-          axios.get(`${API_URL}frais/liste/${user.id_visiteur}`, {
+          axios.get(`${API_URL}medicament/liste/${user.id_visiteur}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });// Requête get à l'API à l'url 
-        // 'http://localhost:8000/api/frais/liste/{id_visiteur}'
+        // 'http://localhost:8000/api/medicament/listelistemedicament_API/{id_visiteur}'
         // TODO : Met à jour l'état avec les données de l'API 
-        setFraisList(response.data);
+        setmedicamentList(response.data);
         setLoading(false);
         // TODO : Met fin à l'état de chargement
 
       } catch (error) {
-        console.error('Erreur lors de la récupération des frais:', error);
+        console.error('Erreur lors de la récupération des medicament:', error);
         // TODO : Arrête le chargement même en cas d'erreur 
         setLoading(false);
       }
     };
-    fetchFrais(); // Appelle la fonction pour récupérer les données 
+    fetchmedicament(); // Appelle la fonction pour récupérer les données 
 
   }, []); // Tableau de dépendances vide = exécute une seule fois 
 
-  // Logique de filtrage : filtre les frais en fonction du terme de recherche
-  const filteredFrais = fraisList
-    .filter((frais) => frais.montantvalide !== null) // Exclut les frais avec montantvalide = null
-    .filter((frais) =>
-      frais.anneemois.includes(searchTerm) ||
-      frais.id_visiteur.toString().includes(searchTerm)
+  // Logique de filtrage : filtre les medicament en fonction du terme de recherche
+  const filteredmedicament = medicamentList
+    .filter((medicament) => medicament.montantvalide !== null) // Exclut les medicament avec montantvalide = null
+    .filter((medicament) =>
+      medicament.anneemois.includes(searchTerm) ||
+      medicament.id_visiteur.toString().includes(searchTerm)
         .filter((f) => !filterNonNull || f.montantvalide !== null)
     );
   const handleDelete = async (id) => {
-    if (!window.confirm('Êtes-vous sûr de vouloir supprimer ce frais ?')) return;
+    if (!window.confirm('Êtes-vous sûr de vouloir supprimer ce medicament ?')) return;
     try {
       await axios.delete(
-        `${API_URL}frais/suppr`,
+        `${API_URL}medicament/suppr`,
         {
-          data: { id_frais: id },
+          data: { id_medicament: id },
           headers: { Authorization: `Bearer ${token}` }
         }
       );
-      // Met à jour FraisList en ignorant le frais qui a été supprimé : on ne garde que les frais dont l’id est différent de l’id du frais sélectionné
-      setFraisList(fraisList.filter((frais) => frais.id_frais !== id));
+      // Met à jour medicamentList en ignorant le medicament qui a été supprimé : on ne garde que les medicament dont l’id est différent de l’id du medicament sélectionné
+      setmedicamentList(medicamentList.filter((medicament) => medicament.id_medicament !== id));
     } catch (error) { console.error('Erreur lors de la suppression:', error); }
 
 
   }
   return (
 
-    <div className="frais-table-container">
-      <h2>Liste des Frais</h2>
+    <div className="medicament-table-container">
+      <h2>Liste des medicament</h2>
 
       {/* Champ de recherche pour le filtrage */}
       <div className="search-container">
@@ -89,43 +89,42 @@ function FraisTable() {
               checked={filterNonNull}
               onChange={(e) => setFilterNonNull(e.target.checked)}
             />
-            Afficher seulement les frais avec un montant validé
+            Afficher seulement les medicament avec un montant validé
           </label>
         </div>
       </div>
       {/* TODO (question 5): Compléter les en-têtes du tableau */}
-      <table className="frais-table">
+      <table className="medicament-table">
         <thead>
           <tr>
             <th>ID</th>
-            <th>ID État</th>
+            <th>famille</th>
             <th>Année-Mois</th>
-            <th>ID Visiteur</th>
-            <th>Nombre de justificatifs</th>
-            <th>Date de modification</th>
-            <th>Montant saisi</th>
-            <th>Montant validé</th>
+            <th>Depot Legal</th>
+            <th>Nom commerciaux</th>
+            <th>Effets</th>
+            <th>Contre indication</th>
+            <th>Prix echantillon</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {fraisList.map((frais) => (
-            <tr key={frais.id}>
-              <td>{frais.id_frais}</td>
-              <td>{frais.id_etat}</td>
-              <td>{frais.anneemois}</td>
-              <td>{frais.id_visiteur}</td>
-              <td>{frais.nbjustificatifs}</td>
-              <td>{frais.datemodification}</td>
-              <td>{frais.montantSaisi}</td>
-              <td>{frais.montantvalide}</td>
+          {medicamentList.map((medicament) => (
+            <tr key={medicament.id}>
+              <td>{medicament.id_medicament}</td>
+              <td>{medicament.id_famille}</td>
+              <td>{medicament.depot_legal}</td>
+              <td>{medicament.nom_commercial}</td>
+              <td>{medicament.effets}</td>
+              <td>{medicament.contre_indication}</td>
+              <td>{medicament.prix_echantillon}</td>
               <td>
-                <button onClick={() => navigate(`/frais/modifier/${frais.id_frais}`)}
+                <button onClick={() => navigate(`/medicament/modifier/${medicament.id_medicament}`)}
                   className="edit-button"
                 >
                   Modifier
                 </button>
-                <button onClick={() => handleDelete(frais.id_frais)}
+                <button onClick={() => handleDelete(medicament.id_medicament)}
                   className="delete-button"
                 >
                   Supression
@@ -133,11 +132,10 @@ function FraisTable() {
               </td>
             </tr>
           ))}
-
         </tbody>
       </table>
     </div>
   );
 };
 
-export default FraisTable;
+export default MedicamentTable;
