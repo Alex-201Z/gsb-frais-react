@@ -27,9 +27,7 @@ function FraisTable() {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          });// Requête get à l'API à l'url 
-        // 'http://localhost:8000/api/frais/liste/{id_visiteur}'
-        // TODO : Met à jour l'état avec les données de l'API 
+          });        // TODO : Met à jour l'état avec les données de l'API 
         setFraisList(response.data);
         setLoading(false);
         // TODO : Met fin à l'état de chargement
@@ -45,13 +43,14 @@ function FraisTable() {
   }, []); // Tableau de dépendances vide = exécute une seule fois 
 
   // Logique de filtrage : filtre les frais en fonction du terme de recherche
-  const filteredFrais = fraisList
-    .filter((frais) => frais.montantvalide !== null) // Exclut les frais avec montantvalide = null
+  {/* const filteredFrais = fraisList
+    .filter(( frais) => frais.montantvalide !== null) // Exclut les frais avec montantvalide = null
     .filter((frais) =>
       frais.anneemois.includes(searchTerm) ||
       frais.id_visiteur.toString().includes(searchTerm)
         .filter((f) => !filterNonNull || f.montantvalide !== null)
     );
+    */}
   const handleDelete = async (id) => {
     if (!window.confirm('Êtes-vous sûr de vouloir supprimer ce frais ?')) return;
     try {

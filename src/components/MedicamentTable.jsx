@@ -1,6 +1,6 @@
 // TODO (question 2) : importer les dépendances nécessaires
 import React, { useState, useEffect } from 'react';
-import '../styles/medicamentTable.css';
+import '../styles/FraisTable.css';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { API_URL } from '../services/authService';
@@ -23,13 +23,11 @@ function MedicamentTable() {
     const fetchmedicament = async () => {
       try {
         const response = await
-          axios.get(`${API_URL}medicament/liste/${user.id_visiteur}`, {
+          axios.get(`${API_URL}medicament/listemedicament_API`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          });// Requête get à l'API à l'url 
-        // 'http://localhost:8000/api/medicament/listelistemedicament_API/{id_visiteur}'
-        // TODO : Met à jour l'état avec les données de l'API 
+          });// Requête get à l'API à l'url         // TODO : Met à jour l'état avec les données de l'API 
         setmedicamentList(response.data);
         setLoading(false);
         // TODO : Met fin à l'état de chargement
@@ -45,13 +43,13 @@ function MedicamentTable() {
   }, []); // Tableau de dépendances vide = exécute une seule fois 
 
   // Logique de filtrage : filtre les medicament en fonction du terme de recherche
-  const filteredmedicament = medicamentList
+  {/* const filteredmedicament = medicamentList
     .filter((medicament) => medicament.montantvalide !== null) // Exclut les medicament avec montantvalide = null
     .filter((medicament) =>
       medicament.anneemois.includes(searchTerm) ||
       medicament.id_visiteur.toString().includes(searchTerm)
         .filter((f) => !filterNonNull || f.montantvalide !== null)
-    );
+    ); */}
   const handleDelete = async (id) => {
     if (!window.confirm('Êtes-vous sûr de vouloir supprimer ce medicament ?')) return;
     try {
