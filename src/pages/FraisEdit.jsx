@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
-import { getCurrentUser, API_URL } from '../services/authService';
+import { useParams } from 'react-router-dom';
+import { API_URL } from '../services/authService';
 import FraisForm from '../components/FraisForm';
+import { useAuth } from '../context/AuthContext';
 
 
 export default function FraisEdit() {
     const { id } = useParams();
     const [ frais, setFrais ] = useState(null);
     const [ loading, setLoading ] = useState(true);
-
-    const user = getCurrentUser();
+    const { user, token } = useAuth();
     
 
     useEffect(() => {
+        if (!user || !token) {
+            setLoading(false);
+            return;
+        }
+
         const fetchFrais = async () => {
             try {
-                const token = localStorage.getItem('token');
                 const response = await axios.get(`${API_URL}frais/${id}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
@@ -28,7 +32,11 @@ export default function FraisEdit() {
             }
         };
         fetchFrais();
-    }, [id]);
+    }, [id, token, user]);
+
+        if (loading) {
+            return <div className="frais-table-container medicament-loading-state">Chargement du frais...</div>;
+        }
 
         return (
             <div>

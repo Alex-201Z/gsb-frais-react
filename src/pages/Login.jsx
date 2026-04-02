@@ -31,33 +31,37 @@ const handleSubmit = async (e) => {
   return (
     <div className="login-page">
       <div className="login-container">
-        <center><h1>Connexion</h1></center>
+        <div className="login-header">
+          <h1>Connexion</h1>
+        </div>
         <form className="login-form" onSubmit={handleSubmit}>
-          <div>
-            <label>Login : </label>
-            <br></br>
+          <div className="login-field">
+            <label htmlFor="login">Login :</label>
             <input
+              id="login"
+              className="login-input"
               type="text"
               value={login}
               onChange={(e) => setLogin(e.target.value)}
               required
             />
-          </div><br></br>
-            <div>
-            <label>Mot de passe : </label>
-            <br></br>
+          </div>
+          <div className="login-field">
+            <label htmlFor="password">Mot de passe :</label>
             <input
+              id="password"
+              className="login-input"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
-          <br></br>
-          <button type="submit" className='nav-link'>Se connecter</button>
+          <div className="login-actions">
+            <button type="submit" className="login-submit">Se connecter</button>
+            <Link to="/home" className="login-back-link">Accueil</Link>
+          </div>
         </form>
-        <br></br>
-        <Link to="dashboard" className='nav-link'>Accueil</Link>
       </div>
     </div>
   );

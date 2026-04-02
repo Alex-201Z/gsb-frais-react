@@ -3,7 +3,7 @@ import FraisForm from "../components/FraisForm";
 
 
 function FraisAdd() {
-  const { token, user } = useAuth();
+  const { user } = useAuth();
   return (
     <div>
       {user != null && (  <FraisForm /> )}

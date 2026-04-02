@@ -2,20 +2,20 @@ import React, { useState, useEffect } from 'react';
 import '../styles/FraisForm.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { getCurrentUser, API_URL } from '../services/authService';
+import { API_URL } from '../services/authService';
 import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 
 
 export default function FraisForm({ frais = null }) {
-    const [idFrais, setIdFrais] = useState('null');
+    const [idFrais, setIdFrais] = useState('');
     const [anneeMois, setanneeMois] = useState('');
     const [nbJustificatifs, setnbJustificatifs] = useState('');
     const [montant, setMontant] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const navigate = useNavigate();
-    const { token } = useAuth();
+    const { token, user } = useAuth();
 
 
 
@@ -42,12 +42,10 @@ export default function FraisForm({ frais = null }) {
             const fraisData = {
                 anneemois: anneeMois,
                 nbjustificatifs: parseInt(nbJustificatifs, 10),
+                montantvalide: parseFloat(montant),
             };
             if (frais) {// Mise à jour d'un frais existant (UPDATE) 
                 fraisData["id_frais"] = idFrais; // ajoute id_frais au JSON fraisData
-                fraisData["montantvalide"] = parseFloat(montant);
-
-                // TODO : compléter la requête 
 
                 const response = await axios.post(
                     `${API_URL}frais/modif`,
@@ -55,16 +53,12 @@ export default function FraisForm({ frais = null }) {
                     {
                         headers: { Authorization: `Bearer ${token}` },
                     }
-                    // TODO : passer l’url de modification (voir le tableau au début du doc),  
-                    // TODO : passer l’objet JSON du body, 
-                    // TODO : passer le token dans les headers 
 
                 );
                 console.log(response)
             } else { // Ajout d'un nouveau frais (CREATE) 
 
-                // TODO : Ajouter id_visiteur à fraisData 
-                fraisData["id_visiteur"] = getCurrentUser().id_visiteur;
+                fraisData["id_visiteur"] = user?.id_visiteur;
                 const response = await axios.post(`${API_URL}frais/ajout`,
 
                     fraisData, {
@@ -117,11 +111,14 @@ export default function FraisForm({ frais = null }) {
                         value={montant}
                         onChange={(e) => setMontant(e.target.value)}
                         required
-                    />
+                />
                 </div>
-                <button type="button" className="frais-hors-forfait-button">
-                <Link className="frais-hors-forfait-link" to={`/frais/${idFrais}/hors-forfait`}>Frais hors forfait</Link>
-                </button>
+                {frais && (
+                    <button type="button" className="frais-hors-forfait-button">
+                        <Link className="frais-hors-forfait-link" to={`/frais/${idFrais}/hors-forfait`}>Frais hors forfait</Link>
+                    </button>
+                )}
+                {error && <div className="error-message">{error}</div>}
                 <button type="submit" disabled={loading}>
                     {loading ? 'Enregistrement...' : (frais ? 'Mettre à jour le frais' : 'Ajouter le frais')}
 

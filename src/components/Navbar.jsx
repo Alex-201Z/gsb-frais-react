@@ -1,4 +1,4 @@
-import styles from '../styles/Navbar.css';
+import '../styles/Navbar.css';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -9,15 +9,18 @@ function Navbar() {
   return (
     <nav className="style">
       <div className="navbardiv">
-        <div >
-          {user &&<button className='nav-link'><Link to="/home" className='nav-link'>Accueil</Link></button>}
-          {user && <button className='nav-link'><Link to="/dashboard" className='nav-link'>Tableau de bord des Frais</Link></button>}
-          {user && <button className='nav-link'><Link to="/dashboardmedicaments" className='nav-link'>Tableau de bord des Médicaments</Link></button>}
-          {user && <button className='nav-link'><Link to="/frais/ajouter" className='nav-link'>Ajouter Frais</Link></button>}
+        <div className="nav-links">
+          {user && <Link to="/home" className="nav-link">Accueil</Link>}
+          {user && <Link to="/dashboard" className="nav-link">Tableau de bord des Frais</Link>}
+          {user && <Link to="/dashboardmedicaments" className="nav-link">Tableau de bord des Médicaments</Link>}
+          {user && <Link to="/medicament/formulations" className="nav-link nav-link-soft">Formulations</Link>}
+          {user && <Link to="/medicament/composants" className="nav-link nav-link-soft">Composants</Link>}
+          {user && <Link to="/medicament/presentations" className="nav-link nav-link-soft">Présentations prescrites</Link>}
+          {user && <Link to="/frais/ajouter" className="nav-link nav-link-soft">Ajouter Frais</Link>}
         </div>
-        <div>
-          {user && <button onClick={ logoutUser} className='nav-link'>Déconnexion</button> }
-          {!user &&<button className='nav-link'><Link to="/login"className='nav-link'>Connexion</Link></button>}
+        <div className="nav-actions">
+          {user && <button onClick={logoutUser} className="nav-button nav-button-ghost">Déconnexion</button>}
+          {!user && <Link to="/login" className="nav-button">Connexion</Link>}
         </div>
       </div>
     </nav>

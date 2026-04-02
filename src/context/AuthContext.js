@@ -29,12 +29,13 @@ if (user && token) {
 setUser(user); 
 setToken(token); 
 } 
+setLoading(false);
 }, []); 
 
   const loginUser = async (login, password) => { 
 const data = await signIn(login, password); 
 setUser(data.visiteur); 
-setToken(data.access_token); 
+setToken(data.token || data.access_token); 
 setLoading(false);
 return data; 
 };

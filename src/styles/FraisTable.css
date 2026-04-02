@@ -1,60 +1,354 @@
-.frais-table-container {
-  margin: 20px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.frais-table-container,
+.medicament-table-container {
+  max-width: 1240px;
+  margin: 24px auto;
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: 22px;
+  box-shadow: var(--shadow-soft);
 }
 
-.frais-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.frais-table th, .frais-table td {
-  padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-.frais-table th {
-  background-color: #f8f9fa;
+.medicament-loading-state {
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
   font-weight: 600;
 }
 
-.frais-table tr:hover {
-  background-color: #f5f5f5;
+.frais-table-container h2,
+.medicament-table-container h2,
+.frais-table-container h3,
+.medicament-table-container h3 {
+  margin: 0 0 1rem;
+  color: var(--text-strong);
+  letter-spacing: -0.02em;
 }
 
-.search-container { 
-margin-bottom: 20px; 
-} 
-.search-container input { 
-padding: 10px; 
-width: 100%; 
-border: 1px solid #ddd; 
-border-radius: 4px; 
-font-size: 14px; 
-} 
-.filter-container { 
-margin-bottom: 15px; 
-} 
-.filter-container label { 
-display: flex; 
-align-items: center; 
-gap: 8px; 
-cursor: pointer; 
+.medicament-section-card {
+  padding: 1.35rem;
+  border: 1px solid var(--border-soft);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(245, 249, 255, 0.96));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
-.edit-button { 
-background-color: #ffc107; 
-margin-right: 5px; 
-} 
-.edit-button:hover { 
-background-color: #e0a800; 
-} 
-.delete-button { 
-  background-color: #dc3545; 
-} 
-.delete-button:hover { 
-background-color: #c82333; 
-} 
+
+.medicament-section-card + .medicament-section-card,
+.medicament-section + .medicament-section {
+  margin-top: 1.5rem;
+}
+
+.frais-table,
+.medicament-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+}
+
+.frais-table th,
+.frais-table td,
+.medicament-table th,
+.medicament-table td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.frais-table thead th,
+.medicament-table thead th {
+  color: var(--text-strong);
+  font-size: 0.92rem;
+  font-weight: 700;
+  background: var(--table-head);
+}
+
+.frais-table tbody tr,
+.medicament-table tbody tr {
+  transition: background-color 0.18s ease, transform 0.18s ease;
+}
+
+.frais-table tbody tr:nth-child(even),
+.medicament-table tbody tr:nth-child(even) {
+  background: rgba(244, 248, 253, 0.65);
+}
+
+.frais-table tbody tr:hover,
+.medicament-table tbody tr:hover {
+  background: rgba(222, 235, 255, 0.65);
+}
+
+.frais-table tbody td[colspan],
+.medicament-table tbody td[colspan] {
+  padding: 22px 16px;
+  color: var(--text-muted);
+  text-align: center;
+  font-style: italic;
+}
+
+.medicament-table-wrapper {
+  overflow-x: auto;
+  margin-top: 1rem;
+  border: 1px solid var(--border-soft);
+  border-radius: 16px;
+  background: #fff;
+}
+
+.medicament-table-wrapper .medicament-table,
+.medicament-table-wrapper .frais-table {
+  margin: 0;
+}
+
+.search-container {
+  display: grid;
+  gap: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.search-container input,
+.medicament-formulation-form input,
+.medicament-formulation-form select,
+.medicament-presentation-picker select {
+  width: 100%;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--text-strong);
+  font-size: 0.98rem;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.search-container input::placeholder {
+  color: #94a0b8;
+}
+
+.search-container input:focus,
+.medicament-formulation-form input:focus,
+.medicament-formulation-form select:focus,
+.medicament-presentation-picker select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(55, 111, 208, 0.14);
+  background: #fff;
+}
+
+.filter-container {
+  margin: 0;
+}
+
+.filter-container label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.8rem 0.95rem;
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  background: var(--surface-alt);
+  color: var(--text-base);
+  cursor: pointer;
+}
+
+.filter-container input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+
+.medicament-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.medicament-page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.medicament-page-actions .secondary-button,
+.medicament-page-actions .add-button {
+  min-width: 170px;
+}
+
+.medicament-formulation-form {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: end;
+}
+
+.medicament-formulation-form > div {
+  min-width: 0;
+}
+
+.medicament-formulation-form label {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: var(--text-strong);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.medicament-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.medicament-presentation-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+.medicament-inline-note {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.medicament-section {
+  margin-top: 1.5rem;
+}
+
+.medicament-subtable {
+  margin-top: 0;
+}
+
+.medicament-control {
+  margin: 0.4rem 0;
+}
+
+.add-button,
+.edit-button,
+.delete-button,
+.secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 46px;
+  padding: 0.8rem 1rem;
+  border: none;
+  border-radius: 14px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.add-button:hover,
+.edit-button:hover,
+.delete-button:hover,
+.secondary-button:hover {
+  transform: translateY(-1px);
+}
+
+.add-button {
+  background: linear-gradient(135deg, #2f7cf6, #2463d1);
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(47, 124, 246, 0.2);
+}
+
+.add-button:hover {
+  background: linear-gradient(135deg, #296fe0, #2159bc);
+}
+
+.secondary-button {
+  background: #eef2f8;
+  color: #344259;
+  border: 1px solid #d8dfeb;
+}
+
+.secondary-button:hover {
+  background: #e3eaf5;
+}
+
+.edit-button {
+  background: #fff3cf;
+  color: #805b00;
+  border: 1px solid #f1dc9f;
+  margin-right: 0.45rem;
+}
+
+.edit-button:hover {
+  background: #fde8a5;
+}
+
+.delete-button {
+  background: #ffe0e1;
+  color: #a52a35;
+  border: 1px solid #f0b9bf;
+}
+
+.delete-button:hover {
+  background: #ffcfd2;
+}
+
+.medicament-overview,
+.medicament-warning {
+  display: none;
+}
+
+@media (max-width: 960px) {
+  .frais-table-container,
+  .medicament-table-container {
+    margin: 16px;
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .medicament-formulation-form {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .medicament-page-actions .secondary-button,
+  .medicament-page-actions .add-button {
+    min-width: 0;
+    flex: 1 1 220px;
+  }
+}
+
+@media (max-width: 640px) {
+  .frais-table-container,
+  .medicament-table-container {
+    margin: 12px;
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .medicament-section-card {
+    padding: 1rem;
+    border-radius: 14px;
+  }
+
+  .medicament-formulation-form {
+    grid-template-columns: 1fr;
+  }
+
+  .medicament-toolbar,
+  .medicament-presentation-picker,
+  .medicament-page-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-container label {
+    width: 100%;
+  }
+
+  .edit-button,
+  .delete-button,
+  .secondary-button,
+  .add-button {
+    width: 100%;
+    margin-right: 0;
+  }
+}
