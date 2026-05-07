@@ -30,6 +30,10 @@ const MEDICAMENT_RESOURCES = {
     label: 'prescriptions',
     url: 'medicament/listeprescrire_API',
   },
+  topPresentations: {
+    label: 'présentations les plus prescrites',
+    url: 'medicament/topPresentations_API',
+  },
 };
 
 export const normalizeId = (value) => (value == null ? '' : String(value));
